@@ -1,19 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Navbar } from "./src/Navbar";
 import { AddTodo } from "./src/AddTodo";
+import { Todo } from "./src/Todo";
 
 export default function App() {
+    const [todos, setTodos] = useState([]);
+
+    const addTodo = (text) => {
+        setTodos((prev) => [
+            ...prev,
+            {
+                id: Date.now().toString(),
+                text
+            }
+        ]);
+    };
+
     return (
         <View>
             <Navbar title="Todo App!" />
             <View style={styles.container}>
-                <AddTodo />
+                <AddTodo onSubmit={addTodo} />
+
+                <View>
+                    {todos.map((todo) => (
+                        <Todo todo={todo} key={todo.id} />
+                    ))}
+                </View>
             </View>
         </View>
     );
 }
-// 1:38
+// 2:02
 
 const styles = StyleSheet.create({
     container: {
