@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Button, TextInput } from "react-native";
+import { View, StyleSheet, Button, TextInput, Alert } from "react-native";
 
 export const AddTodo = ({ onSubmit }) => {
     const [value, setValue] = useState("");
@@ -9,7 +9,7 @@ export const AddTodo = ({ onSubmit }) => {
             onSubmit(value);
             setValue("");
         } else {
-            //error
+            Alert.alert("Название задачи не может быть пустым");
         }
     };
 
@@ -20,6 +20,7 @@ export const AddTodo = ({ onSubmit }) => {
                 onChangeText={setValue}
                 value={value}
                 placeholder="Введите название задачи"
+                autoCorrect={false}
             />
             <Button title="Добавить" onPress={pressHandler} />
         </View>
